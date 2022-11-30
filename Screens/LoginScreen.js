@@ -1,12 +1,13 @@
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import {useState} from "react"
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/core'//maybe @react-navigation/core
+import {Card} from 'react-native-paper'
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('Adrianvela@tamu.edu')//should be: useState('') debugging purposes
+    const [password, setPassword] = useState('Unreal2552')//should be: useState('') debugging purposes
 
     const navigation = useNavigation()
 
@@ -46,6 +47,15 @@ const LoginScreen = () => {
         style={styles.container}
         behavior="padding"
     >
+        <View style={styles.container}//this is where we import BAAR logo
+        >
+            <Image
+            //for the source url, the image will only appear if you replace "file/d/" with "uc?export=view&id="
+            //then delete "/view?usp=sharing" from google drive url png
+            source={{uri:"https://drive.google.com/uc?export=view&id=1u4dwu291KZlPHWQiSMvcAk0DonsLkCx6"}}
+            style={{width:300, height:200, marginBottom: -100}}
+            />
+        </View>
       <View style={styles.inputContainer}>
         <TextInput
             placeholder="Email"
@@ -65,13 +75,13 @@ const LoginScreen = () => {
       <View style = {styles.buttonContainer}>
         <TouchableOpacity
             onPress={handleLogin}
-            style={[styles.button, styles.buttonOutline]}
+            style={[styles.button, styles.buttonOutlineLogin]}
         >
             <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
             onPress={handleSignUp}
-            style={[styles.button, styles.buttonOutline]}
+            style={[styles.button, styles.buttonOutlineRegister]}
         >
             <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
@@ -95,7 +105,7 @@ inputContainer: {
 input: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 20,
     borderRadius: 10,
     marginTop: 5,
 },
@@ -112,11 +122,19 @@ button: {
     borderRadius: 10,
     alignItems:'center',
 },
-buttonOutline: {
+buttonOutlineLogin: {
     backgroundColor: 'white',
     marginTop: 5,
     borderColor: 'black',
     borderWidth: 2,
+    marginBottom: 10
+},
+buttonOutlineRegister: {
+    backgroundColor: 'white',
+    marginTop: 5,
+    borderColor: 'black',
+    borderWidth: 2,
+    marginBottom: 100
 },
 buttonText: {
     color: 'black',
