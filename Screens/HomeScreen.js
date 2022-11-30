@@ -23,7 +23,6 @@ const options = {
 };
 client = new Paho.MQTT.Client(options.host, options.port, options.path);
 
-//const navigation = 0;
 const handleSignOut = 0;
 const DeviceOne = 0;
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -43,9 +42,6 @@ class HomeScreen extends Component {
     client.onMessageArrived = this.onMessageArrived;
   }
 
-  //navigation = useNavigation();
-  // SMSfunc = SendSMSContainer.sendSMS();//used to try and import function
-
   waitFunction = async () => {
     await delay(1000);
     console.log("Waited 1s");
@@ -63,7 +59,7 @@ class HomeScreen extends Component {
     console.log('onConnect');
     this.setState({ status: 'connected' });
   }
-  // 连接失败
+
   onFailure = (err) => {
     console.log('Connect failed!');
     console.log(err);
@@ -131,15 +127,14 @@ class HomeScreen extends Component {
       .catch(error => alert(error.message))
   }
 
-//go to device 1 screen
+//go to device 1 screen and send "ping message"
   DeviceOne = () => {
         //this switches screens to the map
         this.props.navigation.navigate('DeviceOneMapScreen')
+        //this connects to mqtt broker and sends ping using wait functionality
         this.connect();
         this.waitFunction();
-        //this.subscribeTopic();
-        //this.unSubscribeTopic();
-        //this.sendMessage();
+
 
       //.catch(error => alert(error.message)) //this was causing an error in the expo emulator
   }
@@ -152,8 +147,6 @@ render() {
       <View style = {styles.buttonContainer}>
       <TouchableOpacity
           onPress={this.DeviceOne}//should be DeviceOne
-          //onPress={this.subscribeTopic} 
-          //onPress={this.sendMessage}
           style={[styles.button, styles.buttonOutlineDevice]}
       >
           <Text style={styles.buttonText}>Device 1</Text>
