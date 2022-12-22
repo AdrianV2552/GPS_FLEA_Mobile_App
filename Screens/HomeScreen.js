@@ -122,7 +122,7 @@ class HomeScreen extends Component {
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        this.props.navigation.navigate("Login")
       })
       .catch(error => alert(error.message))
   }
@@ -132,8 +132,8 @@ class HomeScreen extends Component {
         //this switches screens to the map
         this.props.navigation.navigate('DeviceOneMapScreen')
         //this connects to mqtt broker and sends ping using wait functionality
-        this.connect();
-        this.waitFunction();
+        //this.connect();// removed when switched to coap
+        //this.waitFunction();// removed when switched to coap
 
 
       //.catch(error => alert(error.message)) //this was causing an error in the expo emulator
